@@ -1,27 +1,33 @@
-using System; // Para DateTime e tipos básicos
-using System.Collections.Generic; // Para ICollection<T>
-using Microsoft.AspNetCore.Identity; // Para ApplicationUser (se estiver usando Identity)
-using System.ComponentModel.DataAnnotations; // Para [Key] e [Required]
+using System;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace MidiotecaWeb.Models
 {
-
     public class Postagem
     {
-        public int Id { get; set; }  // Chave primária
+        public int Id { get; set; }
+
+
+        [StringLength(255)]
         public string Titulo { get; set; }
+
+        [StringLength(4000)]
         public string Conteudo { get; set; }
-        public string ImagemUrl { get; set; }  // Caso tenha upload de imagem
+
+        [StringLength(255)]
+        public string ImagemUrl { get; set; }
+
         public DateTime DataCriacao { get; set; }
 
-        // Tipo de conteúdo, podendo ser 'Filme' ou 'Livro'
+
+        [StringLength(50)]
         public string Tipo { get; set; }
 
-        // Relacionamento com o usuário (autor da postagem)
         public string AutorId { get; set; }
         public ApplicationUser Autor { get; set; }
 
-        // Relacionamento com os comentários
         public ICollection<Comentario> Comentarios { get; set; }
     }
 }
