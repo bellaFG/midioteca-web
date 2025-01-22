@@ -1,22 +1,55 @@
-html {
-  font-size: 14px;
+
+h1, h2, h3, p, a {
+    font-family: 'Poppins', sans-serif;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+h1, h2, h3 {
+    font-weight: 400;
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+p, a {
+    font-weight: 300;
 }
 
-html {
-  position: relative;
-  min-height: 100%;
+
+.navbar, .footer {
+    background-color: #333;
+    color: white;
+    padding: 1rem 0;
+    width: 100%;
+    position: fixed;
 }
 
-body {
-  margin-bottom: 60px;
+.navbar {
+    top: 0;
 }
+
+.footer {
+    bottom: 0;
+    text-align: center;
+    border-top: 1px solid #444;
+}
+
+    .navbar .navbar-brand,
+    .footer .nav-link {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+.navbar-nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 1rem;
+}
+
+    .navbar-nav .nav-link {
+        font-weight: 400;
+    }
+
+        .navbar-nav .nav-link:hover,
+        .footer .nav-link:hover {
+            text-decoration: none;
+        }

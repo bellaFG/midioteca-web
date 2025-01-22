@@ -8,6 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\Conta\Cadastrar.cshtml.cs" />
+    <Compile Remove="Views\Conta\Entrar.cshtml.cs" />
+    <Compile Remove="Views\Conta\Sair.cshtml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="app.db" CopyToOutputDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
   </ItemGroup>
 

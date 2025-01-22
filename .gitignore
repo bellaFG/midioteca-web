@@ -1,2 +1,8 @@
 bin/
 obj/
+.vs/
+*.vsix
+*.user
+*.userosscache
+*.suo
+*.userprefs
