@@ -10,6 +10,8 @@
   <ItemGroup>
     <Compile Remove="Views\Conta\Cadastrar.cshtml.cs" />
     <Compile Remove="Views\Conta\Entrar.cshtml.cs" />
+    <Compile Remove="Views\Conta\Perfil.cs" />
+    <Compile Remove="Views\Conta\Perfil.cshtml.cs" />
     <Compile Remove="Views\Conta\Sair.cshtml.cs" />
   </ItemGroup>
 

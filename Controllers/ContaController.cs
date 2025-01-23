@@ -41,10 +41,7 @@ namespace MidiotecaWeb.Controllers
 
                 if (result.Succeeded)
                 {
-                    
                     await _userManager.AddClaimAsync(user, new Claim("NomeCompleto", model.NomeCompleto));
-
-                    
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return RedirectToAction("Index", "Home");
                 }
@@ -75,9 +72,7 @@ namespace MidiotecaWeb.Controllers
 
                     if (result.Succeeded)
                     {
-                        
                         await AtualizarClaims(user);
-
                         return RedirectToAction("Index", "Home");
                     }
                     ModelState.AddModelError(string.Empty, "Falha ao fazer login. Usuário ou senha incorretos.");
@@ -90,6 +85,55 @@ namespace MidiotecaWeb.Controllers
             return View(model);
         }
 
+        public async Task<IActionResult> Perfil()
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Entrar", "Conta");
+            }
+
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToAction("Entrar", "Conta");
+            }
+
+            return View(user);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditarPerfil(ApplicationUser model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null)
+                {
+                    return RedirectToAction("Entrar", "Conta");
+                }
+
+                user.NomeCompleto = model.NomeCompleto;
+                user.Email = model.Email;
+                user.FotoPerfil = model.FotoPerfil;
+
+                var result = await _userManager.UpdateAsync(user);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Perfil");
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                }
+            }
+
+            return View(model);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Sair()
         {
@@ -97,19 +141,15 @@ namespace MidiotecaWeb.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-       
         private async Task AtualizarClaims(ApplicationUser user)
         {
-            
             var claimsPrincipal = await _signInManager.CreateUserPrincipalAsync(user);
 
-           
-            var authenticationProperties = new Microsoft.AspNetCore.Authentication.AuthenticationProperties
+            var authenticationProperties = new AuthenticationProperties
             {
-                IsPersistent = false 
+                IsPersistent = false
             };
 
-            
             await HttpContext.SignInAsync(
                 IdentityConstants.ApplicationScheme,
                 claimsPrincipal,
